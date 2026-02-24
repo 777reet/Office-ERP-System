@@ -10,8 +10,6 @@ public class EmployeePanel extends JPanel {
     private static final Color PRIMARY = new Color(99, 102, 241);
     private static final Color DANGER  = new Color(239, 68, 68);
     private static final Color SUCCESS = new Color(16, 185, 129);
-    private static final Color BG      = new Color(245, 247, 252);
-    private static final Color CARD    = Color.WHITE;
 
     private JTable table;
     private DefaultTableModel tableModel;
@@ -24,7 +22,7 @@ public class EmployeePanel extends JPanel {
 
     public EmployeePanel() {
         setLayout(new BorderLayout(15, 15));
-        setBackground(BG);
+        setOpaque(false);
         setBorder(new EmptyBorder(25, 25, 25, 25));
         loadDeptData();
         add(buildHeader(), BorderLayout.NORTH);
@@ -55,7 +53,7 @@ public class EmployeePanel extends JPanel {
         p.setOpaque(false);
         JLabel lbl = new JLabel("👥 Employee Management");
         lbl.setFont(new Font("Segoe UI", Font.BOLD, 22));
-        lbl.setForeground(new Color(30, 30, 60));
+        lbl.setForeground(new Color(240, 240, 255));
         p.add(lbl, BorderLayout.WEST);
         tfSearch = UIHelper.styledField("Search by name or department...");
         tfSearch.setPreferredSize(new Dimension(250, 36));
@@ -79,9 +77,9 @@ public class EmployeePanel extends JPanel {
         table.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && table.getSelectedRow() >= 0) populateForm();
         });
-        JScrollPane sp = new JScrollPane(table);
-        sp.setBorder(UIHelper.cardBorder());
-        sp.getViewport().setBackground(CARD);
+        JScrollPane sp = UIHelper.glassScroll(table);
+        
+        
         return sp;
     }
 
@@ -92,7 +90,7 @@ public class EmployeePanel extends JPanel {
 
         JLabel title = new JLabel("Employee Details");
         title.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        title.setForeground(new Color(30, 30, 60));
+        title.setForeground(new Color(240, 240, 255));
         title.setAlignmentX(LEFT_ALIGNMENT);
         card.add(title);
         card.add(Box.createVerticalStrut(15));
@@ -178,7 +176,7 @@ public class EmployeePanel extends JPanel {
     private void addFormRow(JPanel parent, String label, JTextField field) {
         JLabel lbl = new JLabel(label);
         lbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        lbl.setForeground(new Color(100, 110, 140));
+        lbl.setForeground(new Color(160, 160, 200));
         lbl.setAlignmentX(LEFT_ALIGNMENT);
         field.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
         field.setAlignmentX(LEFT_ALIGNMENT);
@@ -189,7 +187,7 @@ public class EmployeePanel extends JPanel {
     private void addComboRow(JPanel parent, String label, JComboBox<String> combo) {
         JLabel lbl = new JLabel(label);
         lbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        lbl.setForeground(new Color(100, 110, 140));
+        lbl.setForeground(new Color(160, 160, 200));
         lbl.setAlignmentX(LEFT_ALIGNMENT);
         combo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
         combo.setAlignmentX(LEFT_ALIGNMENT);

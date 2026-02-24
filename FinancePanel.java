@@ -6,8 +6,10 @@ import java.sql.*;
 
 public class FinancePanel extends JPanel {
     private static final Color SUCCESS = new Color(16, 185, 129);
-    private static final Color DANGER = new Color(239, 68, 68);
-    private static final Color PRIMARY = new Color(99, 102, 241);
+    private static final Color DANGER  = new Color(239, 68, 68);
+    private static final Color PRIMARY = new Color(139, 92, 246);
+    private static final Color TEXT    = new Color(240, 240, 255);
+    private static final Color MUTED   = new Color(160, 160, 200);
 
     private JTable table;
     private DefaultTableModel tableModel;
@@ -17,12 +19,11 @@ public class FinancePanel extends JPanel {
 
     public FinancePanel() {
         setLayout(new BorderLayout(15, 15));
-        setBackground(new Color(245, 247, 252));
+        setOpaque(false);
         setBorder(new EmptyBorder(25, 25, 25, 25));
-
         add(buildHeader(), BorderLayout.NORTH);
-        add(buildTable(), BorderLayout.CENTER);
-        add(buildForm(), BorderLayout.EAST);
+        add(buildTable(),  BorderLayout.CENTER);
+        add(buildForm(),   BorderLayout.EAST);
         loadData();
     }
 
@@ -31,7 +32,7 @@ public class FinancePanel extends JPanel {
         p.setOpaque(false);
         JLabel lbl = new JLabel("💰 Finance Management");
         lbl.setFont(new Font("Segoe UI", Font.BOLD, 22));
-        lbl.setForeground(new Color(30, 30, 60));
+        lbl.setForeground(TEXT);
         p.add(lbl, BorderLayout.WEST);
         return p;
     }
@@ -43,65 +44,73 @@ public class FinancePanel extends JPanel {
         };
         table = UIHelper.styledTable(tableModel);
 
-        // Color rows by type
+        // Color only a left indicator strip via foreground, not full background
         table.setDefaultRenderer(Object.class, new DefaultTableCellRenderer() {
             @Override
             public Component getTableCellRendererComponent(JTable t, Object val, boolean sel, boolean foc, int row, int col) {
-                Component c = super.getTableCellRendererComponent(t, val, sel, foc, row, col);
-                if (!sel) {
-                    String type = (String) tableModel.getValueAt(row, 1);
-                    c.setBackground("Income".equals(type) ? new Color(240, 253, 244) : new Color(255, 242, 242));
+                super.getTableCellRendererComponent(t, val, sel, foc, row, col);
+                if (sel) {
+                    setBackground(new Color(139, 92, 246, 90));
+                    setForeground(Color.WHITE);
+                } else {
+                    String type = tableModel.getRowCount() > row ? (String) tableModel.getValueAt(row, 1) : "";
+                    setBackground(row % 2 == 0 ? new Color(255,255,255,10) : new Color(255,255,255,5));
+                    if (col == 1) {
+                        // Type column — colored text badge feel
+                        setForeground("Income".equals(type) ? new Color(52, 211, 153) : new Color(251, 113, 133));
+                        setFont(new Font("Segoe UI", Font.BOLD, 13));
+                    } else {
+                        setForeground(new Color(220, 220, 245));
+                        setFont(new Font("Segoe UI", Font.PLAIN, 13));
+                    }
                 }
-                setBorder(new EmptyBorder(0, 12, 0, 12));
-                return c;
+                setOpaque(true);
+                setBorder(new EmptyBorder(0, 14, 0, 14));
+                return this;
             }
         });
 
         table.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && table.getSelectedRow() >= 0) populateForm();
         });
-        JScrollPane sp = new JScrollPane(table);
-        sp.setBorder(UIHelper.cardBorder());
-        sp.getViewport().setBackground(Color.WHITE);
-        return sp;
+        return UIHelper.glassScroll(table);
     }
 
     private JPanel buildForm() {
-        JPanel card = UIHelper.cardPanel();
+        JPanel card = UIHelper.glassPanel();
         card.setPreferredSize(new Dimension(260, 0));
         card.setLayout(new BoxLayout(card, BoxLayout.Y_AXIS));
 
         JLabel title = new JLabel("Transaction Details");
         title.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        title.setForeground(new Color(30, 30, 60));
+        title.setForeground(TEXT);
         title.setAlignmentX(LEFT_ALIGNMENT);
         card.add(title);
         card.add(Box.createVerticalStrut(15));
 
-        cbType = UIHelper.styledCombo(new String[]{"Income", "Expense"});
+        cbType   = UIHelper.styledCombo(new String[]{"Income", "Expense"});
         tfAmount = UIHelper.styledField("Amount");
-        tfDate = UIHelper.styledField("YYYY-MM-DD");
-        tfDesc = UIHelper.styledField("Description");
+        tfDate   = UIHelper.styledField("YYYY-MM-DD");
+        tfDesc   = UIHelper.styledField("Description");
 
-        addRow(card, "Type *", cbType);
-        addRow(card, "Amount *", tfAmount);
-        addRow(card, "Date *", tfDate);
-        addRow(card, "Description", tfDesc);
+        addRow(card, "Type *",       cbType);
+        addRow(card, "Amount *",     tfAmount);
+        addRow(card, "Date *",       tfDate);
+        addRow(card, "Description",  tfDesc);
 
         card.add(Box.createVerticalStrut(15));
         JPanel btnRow = new JPanel(new GridLayout(1, 2, 8, 0));
         btnRow.setOpaque(false);
-        btnRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
-        JButton btnSave = UIHelper.primaryButton("💾 Save", SUCCESS);
+        btnRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
+        JButton btnSave   = UIHelper.primaryButton("💾 Save",   SUCCESS);
         JButton btnDelete = UIHelper.primaryButton("🗑 Delete", DANGER);
-        btnSave.addActionListener(e -> save());
+        btnSave.addActionListener(e   -> save());
         btnDelete.addActionListener(e -> delete());
-        btnRow.add(btnSave);
-        btnRow.add(btnDelete);
+        btnRow.add(btnSave); btnRow.add(btnDelete);
         card.add(btnRow);
         card.add(Box.createVerticalStrut(8));
-        JButton btnClear = UIHelper.primaryButton("✖ Clear", new Color(107, 114, 128));
-        btnClear.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
+        JButton btnClear = UIHelper.primaryButton("✖ Clear", new Color(80, 80, 110));
+        btnClear.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         btnClear.addActionListener(e -> clearForm());
         card.add(btnClear);
         return card;
@@ -110,9 +119,9 @@ public class FinancePanel extends JPanel {
     private void addRow(JPanel parent, String label, JComponent field) {
         JLabel lbl = new JLabel(label);
         lbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        lbl.setForeground(new Color(100, 110, 140));
+        lbl.setForeground(MUTED);
         lbl.setAlignmentX(LEFT_ALIGNMENT);
-        field.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
+        field.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
         field.setAlignmentX(LEFT_ALIGNMENT);
         parent.add(lbl);
         parent.add(Box.createVerticalStrut(4));
@@ -123,8 +132,8 @@ public class FinancePanel extends JPanel {
     private void loadData() {
         tableModel.setRowCount(0);
         try (Connection conn = DBConnection.getConnection();
-             PreparedStatement ps = conn.prepareStatement("SELECT * FROM finance ORDER BY date DESC")) {
-            ResultSet rs = ps.executeQuery();
+             PreparedStatement ps = conn.prepareStatement("SELECT * FROM finance ORDER BY date DESC");
+             ResultSet rs = ps.executeQuery()) {
             while (rs.next()) {
                 tableModel.addRow(new Object[]{
                     rs.getInt("finance_id"), rs.getString("type"),
@@ -132,9 +141,7 @@ public class FinancePanel extends JPanel {
                     rs.getString("date"), rs.getString("description")
                 });
             }
-        } catch (SQLException e) {
-            UIHelper.showError(this, "Error: " + e.getMessage());
-        }
+        } catch (SQLException e) { UIHelper.showError(this, "Error: " + e.getMessage()); }
     }
 
     private void populateForm() {
@@ -154,7 +161,6 @@ public class FinancePanel extends JPanel {
         if (amtStr.isEmpty() || date.isEmpty()) { UIHelper.showError(this, "Amount and Date are required."); return; }
         double amount;
         try { amount = Double.parseDouble(amtStr); } catch (NumberFormatException e) { UIHelper.showError(this, "Invalid amount."); return; }
-
         try (Connection conn = DBConnection.getConnection()) {
             if (selectedId == -1) {
                 try (PreparedStatement ps = conn.prepareStatement("INSERT INTO finance (type, amount, date, description) VALUES (?,?,?,?)")) {
@@ -173,9 +179,7 @@ public class FinancePanel extends JPanel {
                 UIHelper.showSuccess(this, "Transaction updated!");
             }
             clearForm(); loadData();
-        } catch (SQLException e) {
-            UIHelper.showError(this, "Error: " + e.getMessage());
-        }
+        } catch (SQLException e) { UIHelper.showError(this, "Error: " + e.getMessage()); }
     }
 
     private void delete() {
@@ -185,11 +189,8 @@ public class FinancePanel extends JPanel {
              PreparedStatement ps = conn.prepareStatement("DELETE FROM finance WHERE finance_id=?")) {
             ps.setInt(1, selectedId);
             ps.executeUpdate();
-            UIHelper.showSuccess(this, "Deleted successfully!");
-            clearForm(); loadData();
-        } catch (SQLException e) {
-            UIHelper.showError(this, "Error: " + e.getMessage());
-        }
+            UIHelper.showSuccess(this, "Deleted!"); clearForm(); loadData();
+        } catch (SQLException e) { UIHelper.showError(this, "Error: " + e.getMessage()); }
     }
 
     private void clearForm() {

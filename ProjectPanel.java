@@ -16,7 +16,7 @@ public class ProjectPanel extends JPanel {
 
     public ProjectPanel() {
         setLayout(new BorderLayout(15, 15));
-        setBackground(new Color(245, 247, 252));
+        setOpaque(false);
         setBorder(new EmptyBorder(25, 25, 25, 25));
 
         add(buildHeader(), BorderLayout.NORTH);
@@ -30,7 +30,7 @@ public class ProjectPanel extends JPanel {
         p.setOpaque(false);
         JLabel lbl = new JLabel("📁 Project Management");
         lbl.setFont(new Font("Segoe UI", Font.BOLD, 22));
-        lbl.setForeground(new Color(30, 30, 60));
+        lbl.setForeground(new Color(240, 240, 255));
         p.add(lbl, BorderLayout.WEST);
         return p;
     }
@@ -45,9 +45,9 @@ public class ProjectPanel extends JPanel {
         table.getSelectionModel().addListSelectionListener(e -> {
             if (!e.getValueIsAdjusting() && table.getSelectedRow() >= 0) populateForm();
         });
-        JScrollPane sp = new JScrollPane(table);
-        sp.setBorder(UIHelper.cardBorder());
-        sp.getViewport().setBackground(Color.WHITE);
+        JScrollPane sp = UIHelper.glassScroll(table);
+        
+        
         return sp;
     }
 
@@ -58,7 +58,7 @@ public class ProjectPanel extends JPanel {
 
         JLabel title = new JLabel("Project Details");
         title.setFont(new Font("Segoe UI", Font.BOLD, 15));
-        title.setForeground(new Color(30, 30, 60));
+        title.setForeground(new Color(240, 240, 255));
         title.setAlignmentX(LEFT_ALIGNMENT);
         card.add(title);
         card.add(Box.createVerticalStrut(15));
@@ -96,7 +96,7 @@ public class ProjectPanel extends JPanel {
     private void addRow(JPanel parent, String label, JTextField field) {
         JLabel lbl = new JLabel(label);
         lbl.setFont(new Font("Segoe UI", Font.PLAIN, 12));
-        lbl.setForeground(new Color(100, 110, 140));
+        lbl.setForeground(new Color(160, 160, 200));
         lbl.setAlignmentX(LEFT_ALIGNMENT);
         field.setMaximumSize(new Dimension(Integer.MAX_VALUE, 36));
         field.setAlignmentX(LEFT_ALIGNMENT);
