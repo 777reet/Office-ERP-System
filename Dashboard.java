@@ -59,12 +59,12 @@ public class Dashboard extends JPanel {
         lblLeaves  = bigLabel("0");
         lblAttend  = bigLabel("0");
 
-        grid.add(glassCard("Total Employees",   lblEmp,      "👥", new Color(139, 92,  246), new Color(109, 40,  217)));
-        grid.add(glassCard("Total Income",      lblIncome,   "💰", new Color(16,  185, 129), new Color(5,   150, 105)));
-        grid.add(glassCard("Total Expense",     lblExpense,  "💸", new Color(239, 68,  68),  new Color(185, 28,  28)));
-        grid.add(glassCard("Active Projects",   lblProjects, "📁", new Color(245, 158, 11),  new Color(180, 108, 0)));
-        grid.add(glassCard("Pending Leaves",    lblLeaves,   "🏖", new Color(99,  102, 241), new Color(67,  56,  202)));
-        grid.add(glassCard("Today's Present",   lblAttend,   "📅", new Color(20,  184, 166), new Color(15,  118, 110)));
+        grid.add(glassCard("Total Employees",   lblEmp,      "•", new Color(139, 92,  246), new Color(109, 40,  217)));
+        grid.add(glassCard("Total Income",      lblIncome,   "•", new Color(16,  185, 129), new Color(5,   150, 105)));
+        grid.add(glassCard("Total Expense",     lblExpense,  "•", new Color(239, 68,  68),  new Color(185, 28,  28)));
+        grid.add(glassCard("Active Projects",   lblProjects, "•", new Color(245, 158, 11),  new Color(180, 108, 0)));
+        grid.add(glassCard("Pending Leaves",    lblLeaves,   "•", new Color(99,  102, 241), new Color(67,  56,  202)));
+        grid.add(glassCard("Today's Present",   lblAttend,   "•", new Color(20,  184, 166), new Color(15,  118, 110)));
 
         return grid;
     }

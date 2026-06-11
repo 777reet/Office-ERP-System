@@ -28,7 +28,7 @@ public class DepartmentPanel extends JPanel {
     private JPanel buildHeader() {
         JPanel p = new JPanel(new BorderLayout());
         p.setOpaque(false);
-        JLabel lbl = new JLabel("🏢 Department & Designation Management");
+        JLabel lbl = new JLabel("• Department & Designation Management");
         lbl.setFont(new Font("Segoe UI", Font.BOLD, 22));
         lbl.setForeground(new Color(240, 240, 255));
         p.add(lbl, BorderLayout.WEST);
@@ -74,22 +74,22 @@ public class DepartmentPanel extends JPanel {
         JPanel btnRow = new JPanel(new GridLayout(1, 2, 8, 0));
         btnRow.setOpaque(false);
         btnRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
-        JButton btnSave = UIHelper.primaryButton("💾 Save", SUCCESS);
-        JButton btnDelete = UIHelper.primaryButton("🗑 Delete", DANGER);
+        JButton btnSave = UIHelper.primaryButton("• Save", SUCCESS);
+        JButton btnDelete = UIHelper.primaryButton("• Delete", DANGER);
         btnSave.addActionListener(e -> save());
         btnDelete.addActionListener(e -> delete());
         btnRow.add(btnSave);
         btnRow.add(btnDelete);
         card.add(btnRow);
         card.add(Box.createVerticalStrut(8));
-        JButton btnClear = UIHelper.primaryButton("✖ Clear", new Color(107, 114, 128));
+        JButton btnClear = UIHelper.primaryButton("• Clear", new Color(107, 114, 128));
         btnClear.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
         btnClear.addActionListener(e -> clearForm());
         card.add(btnClear);
 
         // Info note
         card.add(Box.createVerticalStrut(20));
-        JTextArea note = new JTextArea("Tip: Each department can have multiple designations. Add one entry per designation.");
+        JTextArea note = new JTextArea("");
         note.setFont(new Font("Segoe UI", Font.ITALIC, 11));
         note.setForeground(new Color(120, 130, 160));
         note.setOpaque(false);

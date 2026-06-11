@@ -215,7 +215,7 @@ public class UIHelper {
 
     // ── Dialogs ─────────────────────────────────────────────────────────────
     public static void showSuccess(Component parent, String msg) {
-        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(parent), msg, "Success ✓", JOptionPane.INFORMATION_MESSAGE);
+        JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(parent), msg, "Success •", JOptionPane.INFORMATION_MESSAGE);
     }
     public static void showError(Component parent, String msg) {
         JOptionPane.showMessageDialog(SwingUtilities.getWindowAncestor(parent), msg, "Error", JOptionPane.ERROR_MESSAGE);

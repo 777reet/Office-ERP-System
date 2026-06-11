@@ -30,7 +30,7 @@ public class FinancePanel extends JPanel {
     private JPanel buildHeader() {
         JPanel p = new JPanel(new BorderLayout());
         p.setOpaque(false);
-        JLabel lbl = new JLabel("💰 Finance Management");
+        JLabel lbl = new JLabel("• Finance Management");
         lbl.setFont(new Font("Segoe UI", Font.BOLD, 22));
         lbl.setForeground(TEXT);
         p.add(lbl, BorderLayout.WEST);
@@ -102,14 +102,14 @@ public class FinancePanel extends JPanel {
         JPanel btnRow = new JPanel(new GridLayout(1, 2, 8, 0));
         btnRow.setOpaque(false);
         btnRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
-        JButton btnSave   = UIHelper.primaryButton("💾 Save",   SUCCESS);
-        JButton btnDelete = UIHelper.primaryButton("🗑 Delete", DANGER);
+        JButton btnSave   = UIHelper.primaryButton("• Save",   SUCCESS);
+        JButton btnDelete = UIHelper.primaryButton("• Delete", DANGER);
         btnSave.addActionListener(e   -> save());
         btnDelete.addActionListener(e -> delete());
         btnRow.add(btnSave); btnRow.add(btnDelete);
         card.add(btnRow);
         card.add(Box.createVerticalStrut(8));
-        JButton btnClear = UIHelper.primaryButton("✖ Clear", new Color(80, 80, 110));
+        JButton btnClear = UIHelper.primaryButton("• Clear", new Color(80, 80, 110));
         btnClear.setMaximumSize(new Dimension(Integer.MAX_VALUE, 40));
         btnClear.addActionListener(e -> clearForm());
         card.add(btnClear);

@@ -114,7 +114,7 @@ public class Main extends JFrame {
         logo.setOpaque(false);
         logo.setMaximumSize(new Dimension(Integer.MAX_VALUE, 60));
         logo.setBorder(new EmptyBorder(4, 8, 12, 8));
-        JLabel logoTitle = new JLabel("⚡ OfficeERP");
+        JLabel logoTitle = new JLabel("• OfficeERP");
         logoTitle.setFont(new Font("Segoe UI", Font.BOLD, 16));
         logoTitle.setForeground(TEXT_BRIGHT);
         JLabel logoSub = new JLabel("Management Suite");
@@ -129,13 +129,13 @@ public class Main extends JFrame {
 
         // Nav items
         String[][] nav = {
-            {"🏠","Dashboard","DASHBOARD"},
-            {"👥","Employees","EMPLOYEES"},
-            {"💰","Finance","FINANCE"},
-            {"📅","Attendance","ATTENDANCE"},
-            {"🏢","Departments","DEPARTMENTS"},
-            {"📁","Projects","PROJECTS"},
-            {"🏖","Leave Mgmt","LEAVES"},
+            {"•","Dashboard","DASHBOARD"},
+            {"•","Employees","EMPLOYEES"},
+            {"•","Finance","FINANCE"},
+            {"•","Attendance","ATTENDANCE"},
+            {"•","Departments","DEPARTMENTS"},
+            {"•","Projects","PROJECTS"},
+            {"•","Leave Mgmt","LEAVES"},
         };
         for (String[] item : nav) {
             JButton btn = navBtn(item[0], item[1], item[2]);
@@ -266,7 +266,7 @@ public class Main extends JFrame {
         bar.setOpaque(false);
         bar.setBorder(new EmptyBorder(5, 20, 5, 20));
         bar.setPreferredSize(new Dimension(0, 28));
-        JLabel l = new JLabel("⚡ Office ERP v1.0  |  Java + Swing + JDBC + MySQL");
+        JLabel l = new JLabel("• Office ERP v1.0  |  Java + Swing + JDBC + MySQL");
         l.setFont(new Font("Segoe UI", Font.PLAIN, 11));
         l.setForeground(TEXT_MUTED);
         JLabel r = new JLabel("© 2025 Office ERP System");

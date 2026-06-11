@@ -51,7 +51,7 @@ public class EmployeePanel extends JPanel {
     private JPanel buildHeader() {
         JPanel p = new JPanel(new BorderLayout(10, 0));
         p.setOpaque(false);
-        JLabel lbl = new JLabel("👥 Employee Management");
+        JLabel lbl = new JLabel("• Employee Management");
         lbl.setFont(new Font("Segoe UI", Font.BOLD, 22));
         lbl.setForeground(new Color(240, 240, 255));
         p.add(lbl, BorderLayout.WEST);
@@ -118,7 +118,7 @@ public class EmployeePanel extends JPanel {
         addComboRow(card, "Designation *", cbDesig);
         addFormRow(card, "Salary", tfSalary);
 
-        JButton btnRefresh = UIHelper.primaryButton("🔄 Refresh Departments", new Color(99, 102, 241));
+        JButton btnRefresh = UIHelper.primaryButton("• Refresh Departments", new Color(99, 102, 241));
         btnRefresh.setMaximumSize(new Dimension(Integer.MAX_VALUE, 34));
         btnRefresh.setFont(new Font("Segoe UI", Font.PLAIN, 12));
         btnRefresh.addActionListener(e -> { loadDeptData(); refreshCombos(); });
@@ -128,14 +128,14 @@ public class EmployeePanel extends JPanel {
         JPanel btnRow = new JPanel(new GridLayout(1, 2, 8, 0));
         btnRow.setOpaque(false);
         btnRow.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
-        JButton btnSave   = UIHelper.primaryButton("💾 Save",   SUCCESS);
-        JButton btnDelete = UIHelper.primaryButton("🗑 Delete", DANGER);
+        JButton btnSave   = UIHelper.primaryButton("• Save",   SUCCESS);
+        JButton btnDelete = UIHelper.primaryButton("• Delete", DANGER);
         btnSave.addActionListener(e   -> saveEmployee());
         btnDelete.addActionListener(e -> deleteEmployee());
         btnRow.add(btnSave);
         btnRow.add(btnDelete);
 
-        JButton btnClear = UIHelper.primaryButton("✖ Clear", new Color(107, 114, 128));
+        JButton btnClear = UIHelper.primaryButton("• Clear", new Color(107, 114, 128));
         btnClear.setMaximumSize(new Dimension(Integer.MAX_VALUE, 38));
         btnClear.addActionListener(e -> clearForm());
         card.add(btnRow);
