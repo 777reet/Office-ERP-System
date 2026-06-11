@@ -51,7 +51,7 @@ Before running the application, update the database credentials and JDBC connect
 
 ### Employee Management
 
-![Employees](screenshots/employees.png)
+![Employees](screenshots/employee.png)
 
 ### Attendance Module
 
